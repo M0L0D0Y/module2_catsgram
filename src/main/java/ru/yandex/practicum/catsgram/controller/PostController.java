@@ -14,12 +14,12 @@ public class PostController {
     private final List<Post> posts = new ArrayList<>();
 
     @GetMapping("/posts")
-    public List<Post> findAll() {
+    public List<Post> findAllPosts() {
         return posts;
     }
 
     @PostMapping(value = "/post")
-    public void create(@RequestBody Post post) {
+    public void createPost(@RequestBody Post post) {
         posts.add(post);
     }
 }

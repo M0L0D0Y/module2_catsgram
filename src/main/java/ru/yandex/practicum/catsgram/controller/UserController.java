@@ -1,26 +1,38 @@
 package ru.yandex.practicum.catsgram.controller;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import ru.yandex.practicum.catsgram.exception.InvalidEmailException;
+import ru.yandex.practicum.catsgram.exception.UserAlreadyExistException;
 import ru.yandex.practicum.catsgram.model.User;
 
-import java.util.ArrayList;
-import java.util.List;
-
+import java.util.HashMap;
 @RestController
+@RequestMapping("/users")
 public class UserController {
 
-    private final List<User> users = new ArrayList<>();
+    private final HashMap<String, User> users = new HashMap<>();
 
-    @GetMapping("/users")
-    public List<User> findAll() {
+    @GetMapping
+    public HashMap<String, User> findAllUsers() {
         return users;
     }
 
-    @PostMapping(value = "/user")
-    public void create(@RequestBody User user) {
-        users.add(user);
+    @PostMapping
+    public void createUser(@RequestBody User user) throws InvalidEmailException, UserAlreadyExistException {
+        if ((user.getEmail() == null) && (user.getEmail().equals(""))) {
+            throw new InvalidEmailException("Отсутствует email");
+        }
+        if (users.containsKey(user.getEmail())) {
+            throw new UserAlreadyExistException("Пользователь с таким email" + user.getEmail() + " уже существует");
+        }
+        users.put(user.getEmail(), user);
+    }
+
+    @PutMapping
+    public void updateUser(@RequestBody User user) throws InvalidEmailException {
+        if ((user.getEmail() == null) && (user.getEmail().equals(""))) {
+            throw new InvalidEmailException("Отсутствует email");
+        }
+        users.put(user.getEmail(), user);
     }
 }

@@ -41,4 +41,13 @@ public class UserService {
         users.put(user.getEmail(), user);
         return user;
     }
+
+    public User findUserByEmail(String emailUser) {
+        for (String key : users.keySet()) {
+            if (key.equals(emailUser)) {
+                return users.get(key);
+            }
+        }
+        return null;
+    }
 }

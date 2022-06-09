@@ -51,10 +51,10 @@ public class UserService {
         return null;
     }
 
-    public Optional<User> findByEmail(String email) {
+    public Optional<User> findByEmail(String emailUser) {
         List<User> userList = new LinkedList<>(users.values());
         return userList.stream()
-                .filter(x -> x.getEmail().equals(email))
+                .filter(x -> x.getEmail().equals(emailUser))
                 .findFirst();
     }
 }

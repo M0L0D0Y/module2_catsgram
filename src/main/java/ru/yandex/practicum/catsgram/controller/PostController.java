@@ -30,7 +30,6 @@ public class PostController {
         if (page < 0 || size <= 0) {
             throw new IllegalArgumentException();
         }
-
         Integer from = page * size;
         return postService.findAll(size, from, sort);
     }
@@ -41,7 +40,7 @@ public class PostController {
     }
 
     @GetMapping("/{postId}")
-    public Optional<Post> findById(@PathVariable int postId) {
+    public Post findById(@PathVariable int postId) {
         return postService.findById(postId);
     }
 }

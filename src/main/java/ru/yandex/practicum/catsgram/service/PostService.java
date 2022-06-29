@@ -66,7 +66,7 @@ public class PostService {
     }
 
     private int compare(Post p0, Post p1, String sort) {
-        int result = p0.getCreationDate().compareTo(p1.getCreationDate()); //прямой порядок сортировки
+        int result = p0.getId().compareTo(p1.getId()); //прямой порядок сортировки
         if (sort.equals(DESCENDING_ORDER)) {
             result = -1 * result; //обратный порядок сортировки
         }
